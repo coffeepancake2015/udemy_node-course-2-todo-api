@@ -1,8 +1,43 @@
-var mongoose = require('mongoose');
+var express = require('express');
+var bodyParser = require('body-parser');
 
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/TodoApp', {useNewUrlParser:true});
+var {mongoose} = require('./db/mongoose');
+var {Todo} = require('./model/todo');
+var {User} = require('./model/user');
 
+var app = express();
+
+app.use(bodyParser.json());
+
+app.post('/todos', (req,res) => {
+    var todo = new Todo({
+        text: req.body.text
+    });
+
+    todo.save().then((doc) => {
+        res.send(doc)
+    }, (e) => {
+        res.status(400).send(e);
+        console.log(e);
+    })
+});
+
+app.listen(3000, () => {
+    console.log('Started on port 3000');
+});
+
+
+
+
+
+
+
+
+
+
+
+
+//  Not using anymore below
 //  Mongoose Todos
 // var Todo = mongoose.model('Todo', {
 //     text: {
@@ -32,21 +67,21 @@ mongoose.connect('mongodb://localhost:27017/TodoApp', {useNewUrlParser:true});
 // });
 
 //  Mongoose Users
-var User = mongoose.model('Users',{
-    email:{
-        type:String,
-        required:true,
-        trim:true,
-        minlength:1
-    }
-});
+// var User = mongoose.model('Users',{
+//     email:{
+//         type:String,
+//         required:true,
+//         trim:true,
+//         minlength:1
+//     }
+// });
 
-var newUser = new User({
-    email: 'lalala@mail.com'
-});
+// var newUser = new User({
+//     email: 'lalala@mail.com'
+// });
 
-newUser.save().then((doc) => {
-    console.log(doc);
-},(err) =>  {
-    console.log(JSON.stringify(err, undefined, 2));
-});
+// newUser.save().then((doc) => {
+//     console.log(doc);
+// },(err) =>  {
+//     console.log(JSON.stringify(err, undefined, 2));
+// });
