@@ -5,6 +5,8 @@ var {mongoose} = require('./db/mongoose');
 var {Todo} = require('./model/todo');
 var {User} = require('./model/user');
 
+
+
 var app = express();
 
 app.use(bodyParser.json());
@@ -18,7 +20,6 @@ app.post('/todos', (req,res) => {
         res.send(doc)
     }, (e) => {
         res.status(400).send(e);
-        console.log(e);
     })
 });
 
@@ -27,7 +28,7 @@ app.listen(3000, () => {
 });
 
 
-
+module.exports = {app};
 
 
 
