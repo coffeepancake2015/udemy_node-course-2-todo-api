@@ -7,9 +7,8 @@ var {mongoose} = require('./db/mongoose');
 var {Todo} = require('./model/todo');
 var {User} = require('./model/user');
 
-
-
 var app = express();
+const port = process.env.PORT || 3000;  //  defind port for heroku
 
 app.use(bodyParser.json());
 app.use(morgan('dev'));
@@ -61,7 +60,7 @@ app.get('/todos/:id', (req, res) => {
             //  400 - and send empty body back
 });
 
-app.listen(3000, () => {
+app.listen(port, () => {
     console.log('Started on port 3000');
 });
 
