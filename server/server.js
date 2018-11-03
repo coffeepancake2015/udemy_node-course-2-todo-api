@@ -11,7 +11,7 @@ var app = express();
 const port = process.env.PORT || 3000;  //  defind port for heroku
 
 app.use(bodyParser.json());
-app.use(morgan('dev'));
+//app.use(morgan('dev'));
 
 app.post('/todos', (req,res) => {
     var todo = new Todo({
@@ -67,11 +67,11 @@ app.delete('/todos/:id', (req, res) => {
         return res.status(404).send();
 
     Todo.findOneAndDelete({_id : id})
-    .then((doc) =>{
-        if(!doc)
-            return res.status(400).send();
+    .then((todo) =>{
+        if(!todo)
+            return res.status(404).send();
         
-        res.status(200).send(doc);
+        res.status(200).send({todo:todo});
     }, (e) => {
         res.status(400).send(e);
     })
