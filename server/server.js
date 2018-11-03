@@ -1,5 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var {ObjectID} = require('mongodb');
+var morgan = require('morgan');
 
 var {mongoose} = require('./db/mongoose');
 var {Todo} = require('./model/todo');
@@ -10,6 +12,7 @@ var {User} = require('./model/user');
 var app = express();
 
 app.use(bodyParser.json());
+app.use(morgan('dev'));
 
 app.post('/todos', (req,res) => {
     var todo = new Todo({
@@ -28,7 +31,34 @@ app.get('/todos', (req,res) => {
         .then((todos) => {
             res.send({todos})
         })
-        .catch((e) => res.statusCode(400).send);
+        .catch((e) => res.status(400).send);
+});
+
+app.get('/todos/:id', (req, res) => {
+    var id = req.params.id;
+
+    if(!ObjectID.isValid(id))
+        return res.status(404).send();
+
+    Todo.findById(id)
+        .then((todo) => {
+            if(todo)
+                res.status(200).send({todo});
+            else
+                res.status(404).send();
+        })
+        .catch((e) => {
+            return res.status(404).send();
+        })
+    //validate id using isValid
+        //  404 - send back empty send
+
+    //  findById
+        //Success
+            //  If todo - send it back
+            //  if no todo - send back 404 with empty body
+        //  error
+            //  400 - and send empty body back
 });
 
 app.listen(3000, () => {
