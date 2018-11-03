@@ -60,6 +60,24 @@ app.get('/todos/:id', (req, res) => {
             //  400 - and send empty body back
 });
 
+app.delete('/todos/:id', (req, res) => {
+    var id = req.params.id;
+
+    if(!ObjectID.isValid(id))
+        return res.status(404).send();
+
+    Todo.findOneAndDelete({_id : id})
+    .then((doc) =>{
+        if(!doc)
+            return res.status(400).send();
+        
+        res.status(200).send(doc);
+    }, (e) => {
+        res.status(400).send(e);
+    })
+    
+});
+
 app.listen(port, () => {
     console.log('Started on port 3000');
 });
