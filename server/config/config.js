@@ -5,11 +5,11 @@ console.log('env *******', env);
 if(env === 'development'){
     console.log('setting up dev environment');
     process.env.PORT = 3000;
-    process.env.MONGODB_URI = 'mongodb://localhost:27017/TodoApp';
+    process.env.MONGODB_URI = 'mongodb://127.0.0.1:27017/TodoApp';
 }else if(env === 'test'){
     console.log('setting up test environment');
     process.env.PORT = 3000;
-    process.env.MONGODB_URI = 'mongodb://localhost:27017/TodoAppTest';
+    process.env.MONGODB_URI = 'mongodb://127.0.0.1:27017/TodoAppTest';
 }
 else{
     console.log('setting up prod environment');
