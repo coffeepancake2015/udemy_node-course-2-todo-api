@@ -4,9 +4,9 @@ const bodyParser = require('body-parser');
 const {ObjectID} = require('mongodb');
 const morgan = require('morgan');
 
-var {mongoose} = require('./db/mongoose');
-var {Todo} = require('./model/todo');
-var {User} = require('./model/user');
+const {mongoose} = require('./db/mongoose');
+const {Todo} = require('./model/todo');
+const {User} = require('./model/user');
 
 var app = express();
 const port = process.env.PORT || 3000;  //  defind port for heroku
