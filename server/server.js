@@ -9,6 +9,7 @@ const morgan = require('morgan');
 const {mongoose} = require('./db/mongoose');
 const {Todo} = require('./model/todo');
 const {User} = require('./model/user');
+var {authenticate} = require('./middleware/authenticate')
 
 var app = express();
 const port = process.env.PORT || 3000;  //  defind port for heroku
@@ -128,6 +129,12 @@ app.post('/users', (req,res) => {
         res.status(400).send(e);
     });
     
+});
+
+
+
+app.get('/users/me', authenticate, (req,res) => {
+    res.send(req.user);
 });
 
 app.listen(port, () => {
