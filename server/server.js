@@ -122,7 +122,7 @@ app.post('/users', (req,res) => {
         return user.generateAuthToken();
     })
     .then((token) => {
-        console.log(token);
+        //console.log(token);
         res.header('x-auth', token).send(user);
     })
     .catch((e) => {
@@ -130,8 +130,6 @@ app.post('/users', (req,res) => {
     });
     
 });
-
-
 
 app.get('/users/me', authenticate, (req,res) => {
     res.send(req.user);
