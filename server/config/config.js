@@ -10,6 +10,7 @@ if(env === 'development'){
     console.log('setting up test environment');
     process.env.PORT = 3000;
     process.env.MONGODB_URI = 'mongodb://127.0.0.1:27017/TodoAppTest';
+    //process.env.MONGODB_URI = 'mongodb+srv://sucker:sucker@cluster0-ptkdz.mongodb.net/TodoAppTest?retryWrites=true';
 }
 else{
     console.log('setting up prod environment');
